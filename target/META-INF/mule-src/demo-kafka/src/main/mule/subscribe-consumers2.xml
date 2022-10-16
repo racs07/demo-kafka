@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:tls="http://www.mulesoft.org/schema/mule/tls" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:kafka="http://www.mulesoft.org/schema/mule/kafka"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/kafka http://www.mulesoft.org/schema/mule/kafka/current/mule-kafka.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd">
+	<flow name="demo-kafkaFlow-consumers" doc:id="09bfabd3-4020-46a0-9a89-ce320009fee5" >
+		<http:listener doc:name="Listener" doc:id="d86748dc-334f-4dfb-828c-b4fd2b91ca88" path="/v1/kafka/subscribe" allowedMethods="GET" config-ref="HTTP_Listener_configB"/>
+		<ee:transform doc:name="Transform Message" doc:id="8b0512ee-5e87-461e-b7ad-7da439b2eaaa" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"hi":"rachana",
+	"time":now()
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<kafka:publish doc:name="Publish" doc:id="bb23882f-c748-4310-aa5f-8e1da55477b5" config-ref="Apache_Kafka_Producer_configuration" topic="topic_1"/>
+		<ee:transform doc:name="Transform Message" doc:id="624f5266-f276-4bdc-b6c3-3f2a1bb740e7" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	done:"success",
+	"payload": payload
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="consumer-A-group" doc:id="4cfc808f-7b4a-4055-a58a-6bfc6edabaf1" >
+		<kafka:message-listener doc:name="Message listener" doc:id="fd317a11-ad49-46ca-aa88-98ef70910f6d" config-ref="Apache_Kafka_Consumer_A"/>
+		<ee:transform doc:name="Transform Message" doc:id="94ba5ae8-3249-4977-b9a9-98d9cd0336a1" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"done":"success in A",
+	"hi": payload
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="51d5e643-a171-4320-81be-acb63e376fde" message="#[payload]"/>
+	</flow>
+	<flow name="consumer-B-group" doc:id="955f9d0c-64fc-4b4f-9f72-ba7bd8a0bffd" >
+		<kafka:message-listener doc:name="Message listener" doc:id="5a8e3eec-fbd9-41cd-9b0c-ea9f295a255b" config-ref="Apache_Kafka_Consumer_B"/>
+		<ee:transform doc:name="Transform Message" doc:id="4aa83c45-38c9-4b63-964c-7c24176cebde" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"done":"success in B",
+	"hi": payload
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="b2620a78-4df1-4638-88cf-d88917c462b0" message="#[payload]"/>
+	</flow>
+</mule>

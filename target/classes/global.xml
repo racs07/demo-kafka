@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:tls="http://www.mulesoft.org/schema/mule/tls" xmlns:kafka="http://www.mulesoft.org/schema/mule/kafka"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/kafka http://www.mulesoft.org/schema/mule/kafka/current/mule-kafka.xsd
+http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd">
+	<kafka:producer-config name="Apache_Kafka_Producer_configuration" doc:name="Apache Kafka Producer configuration" doc:id="baa0bca1-4f01-4114-be76-cda6d22797e3" topic="topic_0" >
+		<kafka:producer-sasl-plain-connection username="${kafka.username}" password="${kafka.password}" >
+			<tls:context >
+				<tls:trust-store insecure="true" />
+			</tls:context>
+			<kafka:bootstrap-servers >
+				<kafka:bootstrap-server value="${bootstrap.server}" />
+			</kafka:bootstrap-servers>
+		</kafka:producer-sasl-plain-connection>
+	</kafka:producer-config>
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="f94db16e-1526-466c-ab21-a085175911b4" >
+		<http:listener-connection host="localhost" port="8081" />
+	</http:listener-config>
+	<kafka:consumer-config name="Apache_Kafka_Consumer_Configuration" doc:name="Apache Kafka Consumer configuration" doc:id="f020f77b-0e3c-46ac-8545-8cb56093d76d" >
+		<kafka:consumer-sasl-plain-connection username="${kafka.username}" password="${kafka.password}" >
+			<tls:context >
+				<tls:trust-store insecure="true" />
+			</tls:context>
+			<kafka:bootstrap-servers >
+				<kafka:bootstrap-server value="${bootstrap.server}" />
+			</kafka:bootstrap-servers>
+			<kafka:topic-patterns >
+				<kafka:topic-pattern value="topic_0" />
+			</kafka:topic-patterns>
+		</kafka:consumer-sasl-plain-connection>
+	</kafka:consumer-config>
+	<kafka:consumer-config name="Apache_Kafka_Consumer_A" doc:name="Apache Kafka Consumer configuration" doc:id="1a9051f8-33c3-4348-9085-34359bbca8e4" >
+		<kafka:consumer-sasl-plain-connection username="${kafka.username}" password="${kafka.password}">
+			<tls:context >
+				<tls:trust-store insecure="true" />
+			</tls:context>
+			<kafka:bootstrap-servers >
+				<kafka:bootstrap-server value="${bootstrap.server}" />
+			</kafka:bootstrap-servers>
+			<kafka:topic-patterns >
+				<kafka:topic-pattern value="topic_1" />
+			</kafka:topic-patterns>
+		</kafka:consumer-sasl-plain-connection>
+	</kafka:consumer-config>
+	<kafka:consumer-config name="Apache_Kafka_Consumer_B" doc:name="Apache Kafka Consumer configuration" doc:id="3caca42c-e29c-47d0-aa7a-1d23ebd44cb1" >
+		<kafka:consumer-sasl-plain-connection username="${kafka.username}" password="${kafka.password}">
+			<tls:context >
+				<tls:trust-store insecure="true" />
+			</tls:context>
+			<kafka:bootstrap-servers >
+				<kafka:bootstrap-server value="${bootstrap.server}" />
+			</kafka:bootstrap-servers>
+			<kafka:topic-patterns >
+				<kafka:topic-pattern value="topic_1" />
+			</kafka:topic-patterns>
+		</kafka:consumer-sasl-plain-connection>
+	</kafka:consumer-config>
+	<configuration-properties doc:name="Configuration properties" doc:id="84a76f7a-8a62-4a5e-94c5-8608b9812d32" file="local.properties" />
+</mule>

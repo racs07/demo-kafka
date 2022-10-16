@@ -1,0 +1,31 @@
+{
+  "configs": [
+    "consumers.xml",
+    "demo-kafka.xml",
+    "global.xml",
+    "subscribe-consumers2.xml"
+  ],
+  "secureProperties": [],
+  "redeploymentEnabled": true,
+  "name": "com.mycompany:demo-kafka:1.0.0-SNAPSHOT",
+  "minMuleVersion": "4.4.0",
+  "requiredProduct": "MULE_EE",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "mule",
+    "attributes": {
+      "exportedPackages": [],
+      "exportedResources": [
+        "consumers.xml",
+        "demo-kafka.xml",
+        "global.xml",
+        "local.properties",
+        "log4j2.xml",
+        "subscribe-consumers2.xml"
+      ]
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "mule",
+    "attributes": {}
+  }
+}
