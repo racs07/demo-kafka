@@ -21,7 +21,7 @@ http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/
 		<http:listener-connection host="localhost" port="8081" />
 	</http:listener-config>
 	<kafka:consumer-config name="Apache_Kafka_Consumer_Configuration" doc:name="Apache Kafka Consumer configuration" doc:id="f020f77b-0e3c-46ac-8545-8cb56093d76d" >
-		<kafka:consumer-sasl-plain-connection username="${kafka.username}" password="${kafka.password}" >
+		<kafka:consumer-sasl-plain-connection username="${kafka.username}" password="${kafka.password}">
 			<tls:context >
 				<tls:trust-store insecure="true" />
 			</tls:context>
@@ -30,6 +30,19 @@ http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/
 			</kafka:bootstrap-servers>
 			<kafka:topic-patterns >
 				<kafka:topic-pattern value="topic_0" />
+			</kafka:topic-patterns>
+		</kafka:consumer-sasl-plain-connection>
+	</kafka:consumer-config>
+	<kafka:consumer-config name="Apache_Kafka_Consumer_Configuration_test" doc:name="Apache Kafka Consumer configuration" doc:id="4e1c48ca-4827-4769-9cce-628084e7265d" >
+		<kafka:consumer-sasl-plain-connection username="${kafka.username}" password="${kafka.password}" groupId="ConsumersAB">
+			<tls:context >
+				<tls:trust-store insecure="true" />
+			</tls:context>
+			<kafka:bootstrap-servers >
+				<kafka:bootstrap-server value="${bootstrap.server}" />
+			</kafka:bootstrap-servers>
+			<kafka:topic-patterns >
+				<kafka:topic-pattern value="competing" />
 			</kafka:topic-patterns>
 		</kafka:consumer-sasl-plain-connection>
 	</kafka:consumer-config>

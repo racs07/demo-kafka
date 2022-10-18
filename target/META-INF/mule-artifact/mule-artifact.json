@@ -1,9 +1,9 @@
 {
   "configs": [
-    "consumers.xml",
-    "demo-kafka.xml",
+    "competing-Consumers.xml",
     "global.xml",
-    "subscribe-consumers2.xml"
+    "broadcasting-pattern.xml",
+    "demo-kafka-simple-pattern.xml"
   ],
   "secureProperties": [],
   "redeploymentEnabled": true,
@@ -15,12 +15,12 @@
     "attributes": {
       "exportedPackages": [],
       "exportedResources": [
-        "consumers.xml",
-        "demo-kafka.xml",
+        "broadcasting-pattern.xml",
+        "competing-Consumers.xml",
+        "demo-kafka-simple-pattern.xml",
         "global.xml",
         "local.properties",
-        "log4j2.xml",
-        "subscribe-consumers2.xml"
+        "log4j2.xml"
       ]
     }
   },
