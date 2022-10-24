@@ -8,7 +8,7 @@ http://www.mulesoft.org/schema/mule/kafka http://www.mulesoft.org/schema/mule/ka
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
 http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd">
 	<flow name="demo-kafkaFlow-consumers" doc:id="09bfabd3-4020-46a0-9a89-ce320009fee5" >
-		<http:listener doc:name="Listener /v1/kafka/broadcast :8082" doc:id="d86748dc-334f-4dfb-828c-b4fd2b91ca88" path="/v1/kafka/broadcast" allowedMethods="GET" config-ref="HTTP_Listener_configB"/>
+		<http:listener doc:name="Listener /v1/kafka/broadcast :8082" doc:id="d86748dc-334f-4dfb-828c-b4fd2b91ca88" path="/v1/kafka/broadcast" allowedMethods="GET" config-ref="HTTP_Listener_config"/>
 		<ee:transform doc:name="Publish Message" doc:id="8b0512ee-5e87-461e-b7ad-7da439b2eaaa" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0

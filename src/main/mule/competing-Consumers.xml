@@ -12,7 +12,7 @@ http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/
 		<http:listener-connection host="localhost" port="8082" />
 	</http:listener-config>
 	<flow name="competingConsumers" doc:id="09bfabd3-4020-46a0-9a89-ce320009fee5" >
-		<http:listener doc:name="Listener /v1/kafka :8082" doc:id="d86748dc-334f-4dfb-828c-b4fd2b91ca88" path="/v1/kafka" allowedMethods="GET" config-ref="HTTP_Listener_configB"/>
+		<http:listener doc:name="Listener /v1/kafka :8082" doc:id="d86748dc-334f-4dfb-828c-b4fd2b91ca88" path="/v1/kafka/competing" allowedMethods="GET" config-ref="HTTP_Listener_config"/>
 		<ee:transform doc:name="publishMessage" doc:id="8b0512ee-5e87-461e-b7ad-7da439b2eaaa" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
